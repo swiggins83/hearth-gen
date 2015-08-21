@@ -1,19 +1,21 @@
 package main
 
 import (
-	"fmt"
+	"io/ioutil"
 )
 
 func main() {
 
 	cards := FetchCards()
+	var allCardTexts string
 	for _, entity := range cards.Entity {
-		fmt.Println()
 		for _, tag := range entity.Tag {
 			if tag.Name == "CardTextInHand" {
-				fmt.Printf("\t%s\n", tag.EnUS)
+				allCardTexts += tag.EnUS
 			}
 		}
 	}
+	err := ioutil.WriteFile("cards.txt", []byte(allCardTexts), 0644)
+	CheckError(err)
 
 }
