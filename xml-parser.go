@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/xml"
-	"fmt"
 	"io/ioutil"
 	"os"
 )
@@ -37,24 +36,23 @@ type PlayRequirement struct {
 	ReqID string `xml:"reqID,attr"`
 }
 
-func main() {
+func CheckError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
+func FetchCards() CardDefs {
 
 	xmlFile, err := os.Open("cards.xml")
-	if err != nil {
-		return
-	}
+	CheckError(err)
 	defer xmlFile.Close()
 
 	data, _ := ioutil.ReadAll(xmlFile)
 
 	var c CardDefs
 	err = xml.Unmarshal([]byte(data), &c)
-	if err != nil {
-		return
-	}
-	fmt.Println(c.Entity[0].Tag[0].EnUS)
-	//for _, entity := range episodiv.Entity {
-	//	fmt.Printf("\t%s\n", entity)
-	//}
+	CheckError(err)
+	return c
 
 }
