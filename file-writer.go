@@ -2,6 +2,7 @@ package main
 
 import (
 	"io/ioutil"
+	"strings"
 )
 
 func main() {
@@ -11,7 +12,14 @@ func main() {
 	for _, entity := range cards.Entity {
 		for _, tag := range entity.Tag {
 			if tag.Name == "CardTextInHand" {
-				allCardTexts += tag.EnUS
+				s := strings.Replace(tag.EnUS, "<b>", "", 100)
+				s = strings.Replace(s, "</b>", "", 100)
+				s = strings.Replace(s, "<i>", "", 100)
+				s = strings.Replace(s, "</i>", "", 100)
+				if !strings.Contains(s, "\n") {
+					s += "\n"
+				}
+				allCardTexts += s
 			}
 		}
 	}
