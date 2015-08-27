@@ -23,6 +23,7 @@ type Tag struct {
 	EnumID string `xml:"enumID,attr"`
 	Name   string `xml:"name,attr"`
 	Type   string `xml:"type,attr"`
+	Value  string `xml:"value,attr"`
 	EnUS   string `xml:"enUS"`
 }
 
